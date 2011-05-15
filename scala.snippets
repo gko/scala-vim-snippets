@@ -4,17 +4,6 @@
 # See http://sam.zoy.org/wtfpl/COPYING for more details.       #
 ################################################################
 # Scala lang
-
-#comment
-snippet /*
-	/*
-	 * ${1:comment}
-	 */
-#scaladoc
-snippet /**
-	/**
-	 * ${1:description}
-	 */	
 #if
 snippet if
 	if(${1:obj}) {
@@ -82,11 +71,6 @@ snippet arg
 #args
 snippet args
 	${1:args}: ${2:T}*
-#scope(for general purpose)
-snippet {
-	{
-		${1:/* code */}
-	}
 #def
 snippet def
 	def ${1:name}(${2:arg}) = ${3:{}
@@ -99,12 +83,14 @@ snippet ovdef
 #first class function(see scalabook p 188)
 snippet fcf
 	(${1:a}: ${2:T}) => $1 ${3:/* code */}
+snippet =>
+	${1:name} => ${2:/* code */}
 #recursion
 snippet rec
 	def ${1:name}(${2:arg}) =
 		if($2) $2
 		else $1($2)
-#curried function
+#curried method
 snippet crdef
 	def ${1:name}(${2:arg})(${3:arg}) = ${4:{} 
 #main method
@@ -233,10 +219,10 @@ snippet fldr
 	${1:name}.foldRight(${2:first}) {(
 #fold left operator(if u wanna reduce readability of ur code)
 #use wildcard symbols
-snippet fldlop
+snippet /:
 	(${1:first}/:${2:name})(${3:/* code */})	
 #fold right operator
-snippet fldrop
+snippet :\
 	(${1:first}:\${2:name})(${3:/* code */})
 #reduce left
 snippet redl
@@ -329,6 +315,26 @@ snippet fsuite
 		test("${2:description}") {
 	}
 ############################
+# SBT
+#
+snippet webproject
+	import sbt._
+
+	class ${1:Name}(info: ProjectInfo) extends DefaultWebProject(info) {
+		val liftVersion = "${2:2.3}"
+
+		override def libraryDependencies = Set(
+			
+		) ++ super.libraryDependencies
+
+		val snapshots = ScalaToolsSnapshots 
+	}
+#depencies
+snippet liftjar
+	"net.liftweb" %% "${1:lib}" % liftVersion % "compile->default",
+snippet jettyjar
+	"org.mortbay.jetty" % "jetty" % "${1:version}" % "test->default",	
+############################
 # Lift
 #
 #lift imports
@@ -338,3 +344,4 @@ snippet liftimports
 	import _root_.net.liftweb.util._
 	import Helpers._
 	import _root_.scala.xml._
+#TODO LIFT,SBT,WEB.XML,HTML snippets
