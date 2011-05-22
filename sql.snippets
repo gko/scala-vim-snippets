@@ -1,0 +1,20 @@
+snippet col
+	${1:name}${1:,col}
+snippet select
+	select ${1:col} from ${2:table} where ${2:condition}
+#joins
+snippet join
+	select ${1:col} from ${2:table} join ${1:table} on ${2:condition}
+snippet ijoin
+	select ${1:col} from ${2:table} inner join ${3:table} on ${4:condition}
+snippet lojoin
+	select ${1:col} from ${2:table} left outer join ${3:table} on ${4:condition}
+snippet rojoin
+	select ${1:col} from ${2:table} right outer join ${3:table} on ${4:condition}
+snippet fojoin
+	select ${1:col} from ${2:table} full outer join ${3:table} on ${4:condition}
+snippet cjoin
+	select ${1:col} from ${2:table} cross join ${3:table}
+#end joins
+snippet update
+	update ${1:col}
