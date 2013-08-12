@@ -7,61 +7,65 @@
 #if
 snippet if
 	if(${1:obj}) {
-		${2:/* code */}	
+		${2}
 	}
 #if not
 snippet ifn
 	if(!${1:obj}) {
-		${2:/* code */}	
+		${2}
 	}
 #if-else
-snippet ifel
+snippet ife
 	if(${1:obj}) {
-		${2:/* code */}	
+		${2}
 	} else {
-		${3:/* code */}	
+		${3}
 	}
 #if-else-if
 snippet ifelif
 	if(${1:obj}) {
-		${2:/* code */}	
+		${2}
 	} else if(${3:obj}) {
-		${4:/* code */}	
+		${4}
+	}
+snippet eif
+	else if(${3:obj}) {
+		${4}
 	}
 #while loop
-snippet while
+snippet wh
 	while (${1:obj}) {
-		${2:/* code */}	
+		${2}
 	}
 #for loop(classic)
 snippet for
 	for (${1:item} <- ${2:obj}) {
-		${3:/* code */}
+		${3}
 	}
 #for loop(indexed)
 snippet fori
 	for (${1:i} <- ${2:0} to ${3:obj}.length) {
-		${4:/* code */}
+		${4}
 	}
 #exceptions
 snippet try
 	try {
-		${1:/* code */}
+		${1}
 	} catch {
-		case e: FileNotFoundException => ${2:/* code */}
-		case e: IOException => ${3:/* code */}
+		case e: FileNotFoundException => ${2}
+		case e: IOException => ${3}
 	} finally {
-		${4:/* code */}
+		${4}
 	}
 #match
 snippet match
 	${1: obj} match {
-		case ${2:e} => ${3:/* code */}  
-		case _ => ${4:/* code */}
+		case ${2:e} => ${3}
+		case _ => ${4}
 	}
 #case
 snippet case
-	case ${1:value} => ${2:/* code */}
+	case ${1:value} => ${2}
 ############################
 # methods and arguments
 #
@@ -73,18 +77,18 @@ snippet args
 	${1:args}: ${2:T}*
 #def
 snippet def
-	def ${1:name}(${2:arg}) = ${3:{}
+	def ${1:name}(${2:arg}) = ${3:}
 #private def
 snippet prdef
-	private def ${1:name}(${2:arg}) = ${3:{}
+	private def ${1:name}(${2:arg}) = ${3:}
 #override def
 snippet ovdef
-	override def ${1:name}(${2:arg}) = ${3:{} 
+	override def ${1:name}(${2:arg}) = ${3:}
 #first class function(see scalabook p 188)
 snippet fcf
-	(${1:a}: ${2:T}) => $1 ${3:/* code */}
+	(${1:a}: ${2:T}) => $1 ${3}
 snippet =>
-	${1:name} => ${2:/* code */}
+	${1:name} => ${2}
 #recursion
 snippet rec
 	def ${1:name}(${2:arg}) =
@@ -92,11 +96,11 @@ snippet rec
 		else $1($2)
 #curried method
 snippet crdef
-	def ${1:name}(${2:arg})(${3:arg}) = ${4:{} 
+	def ${1:name}(${2:arg})(${3:arg}) = ${4:}
 #main method
 #check validity of T
 snippet main
-	def main(args: Array[String]):${1:T} = ${2:{}
+	def main(args: Array[String]):${1:T} = ${2:}
 ############################
 # basic types(general purpose)
 # you might want to use basic types snippets
@@ -142,7 +146,7 @@ snippet T HashMap
 	hmap
 #14
 snippet T Boolean
-	bool			
+	bool
 #end
 
 #named snippets for types
@@ -196,11 +200,11 @@ snippet as
 
 #scope() with one arg
 snippet (a
-	(${1:a} => ${2:/* code */})
+	(${1:a} => ${2})
 #scope() with two args
 snippet {(
-	{(${1:a},${2:b}) => 
-		${3:/* code */}
+	{(${1:a},${2:b}) =>
+		${3}
 	}
 #filter
 snippet filter
@@ -220,19 +224,19 @@ snippet fldr
 #fold left operator(if u wanna reduce readability of ur code)
 #use wildcard symbols
 snippet /:
-	(${1:first}/:${2:name})(${3:/* code */})	
+	(${1:first}/:${2:name})(${3})
 #fold right operator
 snippet :\
-	(${1:first}:\${2:name})(${3:/* code */})
+	(${1:first}:\${2:name})(${3})
 #reduce left
 snippet redl
 	${1:name}.reduceLeft[${2:T}] {(
 #reduce right
 snippet redr
 	${1:name}.reduceRight[${2:T}] {(
-#zipWithIndex(safe way). 
+#zipWithIndex(safe way).
 #see http://daily-scala.blogspot.com/2010/05/zipwithindex.html
-snippet zipwi	
+snippet zipwi
 	${1:name}.view.zipWithIndex
 #split
 snippet spl
@@ -258,30 +262,32 @@ snippet athis
 snippet abstract
 	abstract class ${1:name}${2:(arg)}${3: extends }${4: with} {
 		${5:override def toString = "$1"}
-		${6:/* code */}
+		${6}
 	}
 #class
 snippet class
 	class ${1:name}${2:(arg)}${3: extends }${4: with} {
 		${5:override def toString = "$1"}
-		${6:/* code */}
+		${6}
 	}
 #object
 snippet object
-	object ${1:name}${2:(arg)}${3: extends }${4: with} ${5:{}
+	object ${1:name}${2:(arg)}${3: extends }${4: with} ${5:}
 #trait
 snippet trait
-	trait ${1:name}${2: extends }${3: with} ${4:{}
+	trait ${1:name}${2: extends }${3: with} {
+		${4:}
+	}
 #class with trait Ordered(page 265)
 snippet ordered
 	class ${1:name}${2:(arg)} extends Ordered[$1] ${3: with} {
 		${4:override def toString = "$1"}
 		def compare(that: $1) = ${5:this - that}
-		${6:/* code */}
+		${6}
 	}
 #case class
 snippet casecl
-	case class ${1:name}${2:(arg)}${3: extends }${4: with} ${5:{}
+	case class ${1:name}${2:(arg)}${3: extends }${4: with} ${5:}
 ############################
 # testing
 #
@@ -324,16 +330,16 @@ snippet webproject
 		val liftVersion = "${2:2.3}"
 
 		override def libraryDependencies = Set(
-			
+
 		) ++ super.libraryDependencies
 
-		val snapshots = ScalaToolsSnapshots 
+		val snapshots = ScalaToolsSnapshots
 	}
 #depencies
 snippet liftjar
 	"net.liftweb" %% "${1:lib}" % liftVersion % "compile->default",
 snippet jettyjar
-	"org.mortbay.jetty" % "jetty" % "${1:version}" % "test->default",	
+	"org.mortbay.jetty" % "jetty" % "${1:version}" % "test->default",
 ############################
 # Lift
 #
